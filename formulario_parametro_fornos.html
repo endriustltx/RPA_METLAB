@@ -1,0 +1,214 @@
+<?php
+
+session_start();
+if((!isset($_SESSION['login']) == true) and (!isset($_SESSION['senha']) == true))
+{
+    unset($_SESSION['login']);
+    unset($_SESSION['senha']);
+    header('Location: login.php');
+}
+$logado = $_SESSION['login'];
+
+
+if (isset($_POST['submit'])) {
+    include_once('config.php');
+
+    $fornos = $_POST['fornos'];
+    $frequencia = $_POST['frequencia'];
+    $receita = $_POST['receita'];
+    $data_registro = $_POST['data_registro'];
+    $temp_camara = $_POST['temp_camara'];
+    $temp_oleo = $_POST['temp_oleo'];
+    $vazao_ni_pr = $_POST['vazao_ni_pr'];
+    $vazao_ni_seg = $_POST['vazao_ni_seg'];
+    $pres_lin_pro = $_POST['pres_lin_pro'];
+    $pres_lin_ni_seg = $_POST['pres_lin_ni_seg'];
+    $vazao_metanol = $_POST['vazao_metanol'];
+    $press_lin_meta = $_POST['press_lin_meta'];
+    $vazao_gas_natural = $_POST['vazao_gas_natural'];
+    $pot_carbono = $_POST['pot_carbono'];
+    $atmo_forno = $_POST['atmo_forno'];
+    $co2_atmo_forno = $_POST['co2_atmo_forno'];
+    $ch4_atmo_forno = $_POST['ch4_atmo_forno'];
+
+    $stmt = $conexao->prepare("INSERT INTO tbl_para_fornos(Fornos, Frequencia, Receita, Data_Registro, Temp_camara, Temp_Oleo, Vazao_ni_pr, Vazao_ni_seg, Pres_lin_pro, Pres_lin_ni_seg, Vazao_metanol, Press_lin_meta, Vazao_gas_natural, Pot_carbono, Atmo_forno, Co2_atmo_forno, Ch4_atmo_forno) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssssssssssssss", $fornos, $frequencia, $receita, $data_registro, $temp_camara, $temp_oleo, $vazao_ni_pr, $vazao_ni_seg , $pres_lin_pro, $pres_lin_ni_seg , $vazao_metanol , $press_lin_meta , $vazao_gas_natural , $pot_carbono , $atmo_forno , $co2_atmo_forno , $ch4_atmo_forno);
+
+    if ($stmt->execute()) {
+        // Inserção bem-sucedida
+    } else {
+        //Erro na inserção
+    }
+
+    $stmt->close();
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONTROLES DE PARÂMETROS DE PROCESSO NOS FORNOS</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <div class="box">
+        <form action="formulario_parametro_fornos.php" method="POST">
+            <fieldset>
+                <legend><b>PARAMETRO DE PROCESSO DOS FORNOS</b></legend>
+                 <br>
+                    <div class="inputBox">
+                        <input type="radio" name="fornos" id="VKGS 1" value="VKGS 1">
+                        <label for="VKGS 1">VKGS 1</label>
+                        <input type="radio" name="fornos" id="VKGS 2" value="VKGS 2">
+                        <label for="VKGS 2">VKGS 2</label>
+                        <input type="radio" name="fornos" id="VKGS 3" value="VKGS 3">
+                        <label for="VKGS 3">VKGS 3</label>
+                        <input type="radio" name="fornos" id="VKGS 4" value="VKGS 4">
+                        <label for="VKGS 4">VKGS 4</label>
+                        <input type="radio" name="fornos" id="VKGS 5" value="VKGS 5">
+                        <label for="VKGS 5">VKGS 5</label>
+                        <br>
+                            <div>
+                                <br>
+                            <label>FREQUENCIA</label>
+                            <br>
+                            <input type="radio" name="frequencia" id="0700" value="07:00">
+                            <label for="0700">07:00</label>
+                            
+                            <input type="radio" name="frequencia" id="0900" value="09:00">
+                            <label for="0900">09:00</label>
+                            
+                            <input type="radio" name="frequencia" id="1100" value="11:00">
+                            <label for="1100">11:00</label>
+                            
+                            <input type="radio" name="frequencia" id="1300" value="13:00">
+                            <label for="1300">13:00</label>
+                            
+                            <input type="radio" name="frequencia" id="1500" value="15:00">
+                            <label for="1500">15:00</label>
+                            
+                            <input type="radio" name="frequencia" id="1700" value="17:00">
+                            <label for="1700">17:00</label>
+                            
+                            <input type="radio" name="frequencia" id="1900" value="19:00">
+                            <label for="1900">19:00</label>
+                            
+                            <input type="radio" name="frequencia" id="2100" value="21:00">
+                            <label for="2100">21:00</label>
+                            
+                            <input type="radio" name="frequencia" id="2300" value="23:00">
+                            <label for="2300">23:00</label>
+                            
+                            <input type="radio" name="frequencia" id="0100" value="01:00">
+                            <label for="0100">01:00</label>
+                            
+                            <input type="radio" name="frequencia" id="0300" vForalue="03:00">
+                            <label for="0300">03:00</label>
+                            
+                            <input type="radio" name="frequencia" id="0500" value="05:00">
+                            <label for="0500">05:00</label>
+                            </div>
+                            <div>
+                                <br>
+                                <label>RECEITA DE USO</label>
+                                <br>
+                                <input type="checkbox" name="receita" id="OK" value="OK">
+                                <label for="OK">OK</label>
+                                <input type="checkbox" name="receita" id="NOK" value="NOK">
+                                <label for="NOK">NOK</label>
+                            </div>
+                            <br>
+                            <div>
+                            <label for="data_parada">DATA DO REGISTRO:</label>
+                            <input type="date" name="data_registro" id="data_parada" class="inputdata" required>
+                            
+                            </div>
+                            <br>
+                            <div>
+                                <label for="temp_camara">Temperat. da camara durante a cementação e têmpera 600 a 950°C: </label>
+                                <br>
+                                <input type="text" name="temp_camara" id="temp_camara" class="inputuser" required>
+                            </div>
+                            <br>
+                            <div>
+                                <label for="temp_oleo">Temperat. do óleo de têmpera 120 a 170°C: </label>
+                                <br>
+                                <input type="text" name="temp_oleo" id="temp_oleo" class="inputuser" required>
+                            </div>
+                            <br>
+                            <div>
+                                <label for="vazao_ni_pr">Vazão de nitrogênio de processo 4 a 8 M³/H: </label>
+                                <br>
+                                <input type="text" name="vazao_ni_pr" id="vazao_ni_pr" class="inputuser" required>
+                            </div>
+                            <br>
+                            <div>
+                                <label for="vazao_ni_seg">Vazão de nitrogênio de segurança 0 a 30 M3/H: </label>
+                                <br>
+                                <input type="text" name="vazao_ni_seg" id="vazao_ni_seg" class="inputuser" required>
+                            </div>
+                            <br>
+                            <div>
+                                <label for="pres_lin_pro">Pressão da linha de nitrogênio de processo 0,3 a 0,7 Bar: </label>
+                                <br>
+                                <input type="text" name="pres_lin_pro" id="pres_lin_pro" class="inputuser" required>
+                            </div>
+                            <br>
+                            <div>
+                                <label for="pres_lin_ni_seg">Pressão da linha de nitrogênio de segurança 0,3 a 0,7 bar (fornos 3,4 e5): </label>
+                                <br>
+                                <input type="text" name="pres_lin_ni_seg" id="pres_lin_ni_seg" class="inputuser" required>
+                            </div>
+                            <br>
+                            <div>
+                                <label for="vazao_metanol">Vazão de metanol 3 a 4 L/hora: </label>
+                                <br>
+                                <input type="text" name="vazao_metanol" id="vazao_metanol" class="inputuser" required>
+                            </div>
+                            <br>
+                            <div>
+                                <label for="press_lin_meta">Pressão da linha de metanol 0,5 a 1,25 Bar: </label>
+                                <br>
+                                <input type="text" name="press_lin_meta" id="press_lin_meta" class="inputuser" required>
+                            </div>
+                            <br>
+                            <div>
+                                <label for="vazao_gas_natural">Vazão de Gás Natural 0 a 1,0 M³/H: </label>
+                                <br>
+                                <input type="text" name="vazao_gas_natural" id="vazao_gas_natural" class="inputuser" required>
+                            </div>
+                            <br>
+                            <div>
+                                <label for="pot_carbono">Potencial de carbono 0.80-1.25%: </label>
+                                <br>
+                                <input type="text" name="pot_carbono" id="pot_carbono" class="inputuser" required>
+                            </div>
+                            <br>
+                            <div>
+                                <label for="atmo_forno">%CO Na atmosfera do forno 18-22%: </label>
+                                <br>
+                                <input type="text" name="atmo_forno" id="atmo_forno" class="inputuser" required>
+                            </div>
+                            <br>
+                            <div>
+                                <label for="co2_atmo_forno">%CO2 Na atmosfera do forno 0,05-1,0%: </label>
+                                <br>
+                                <input type="text" name="co2_atmo_forno" id="co2_atmo_forno" class="inputuser" required>
+                            </div>
+                            <br>
+                            <div>
+                                <label for="ch4_atmo_forno">%CH4 Na atmosfera do forno 0.1- 5%: </label>
+                                <br>
+                                <input type="text" name="ch4_atmo_forno" id="ch4_atmo_forno" class="inputuser" required>
+                                <br><br>
+                                <input type="submit" name="submit" id="submit">
+                            </div>
+                    </div>
+            </fieldset>
+        </form>
+    </div>
+    
+</body>
+</html>

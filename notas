@@ -1,0 +1,3 @@
+, $fornos, $frequencia, $receita, $data_registro, $temp_camara, $temp_oleo, $vazao_ni_pr, $vazao_ni_seg , $pres_lin_pro, $pres_lin_ni_seg , $vazao_metanol , $press_lin_meta , $vazao_gas_natural , $pot_carbono , $atmo_forno , $co2_atmo_forno , $ch4_atmo_forno 
+
+?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
